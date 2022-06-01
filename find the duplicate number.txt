@@ -1,0 +1,115 @@
+ this question can be solved in three ways
+
+1. brute force approach:
+
+here sort the given array then linearly travere and there will be an index i would be equal to value at index i+1
+
+t.c.=O(nlogn);
+
+s.c.=O(1);
+
+code:
+
+int n=nums.size();
+
+        if(n==0)
+
+            return 0;
+
+        sort(nums.begin(),nums.end());
+
+        int i;
+
+        for(i=0;i<n-1;i++){
+
+            if(nums[i]==nums[i+1]){
+
+                return nums[i];
+
+                break;
+
+        }
+
+        }
+
+          return 0;
+
+					}
+
+					
+
+2. better approach:
+
+this can be done by hashing , here create a frequncy array of same size and linearly traverse and upadate the index
+
+t.c.=O(n)
+
+s.c.=O(n)
+
+			code:
+
+			int n=nums.size();
+
+			int freq[n+1]={0};
+
+			for(int i=0;i<n;i++){
+
+			if(freq[nums[i]==0){
+
+			freq[nums[i]]+=1;
+
+			}
+
+			else{
+
+			return nums[i];
+
+			}
+
+			}return 0;
+
+			}
+
+			
+
+			
+
+3. optimal approach:
+
+(linked list cycle method - tortoise approach)
+
+it tells us that we are going to take two pointers one slow and one fast.the slow pointer will move one step whereas the fast pointer will  move two steps
+
+whenever the fast and the slow pointer collide stop there and now once they collide take the fast pointer on the 1st number(0 index) and now move both the pointer simultaneously by one step i.e., move the 1st pointer by one and the slow pointer also by one and the point where they collide will be a duplicate number .
+
+s.c.=O(1)
+
+t.c.=O(n)
+
+			code:
+
+         int slow=nums[0];
+
+         int fast=nums[0];
+
+         do{
+
+             slow=nums[slow];
+
+             fast=nums[nums[fast]];
+
+         }while(slow!=fast);
+
+             fast=nums[0];
+
+         while(slow!=fast){
+
+         slow=nums[slow];
+
+         fast=nums[fast];
+
+     }
+
+         return slow;
+
+    }
