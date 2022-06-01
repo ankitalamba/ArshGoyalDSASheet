@@ -1,0 +1,61 @@
+this can be solved using three ways:
+1. brute force approach:
+sort the arrays 0's will come first, followed by 1's and at last 2's .
+T.C.=O(nlogn)
+S.C=O(1)
+code:sort(nums.begin(),nums.end())
+
+2.better approach:
+by using counting sort i.e., linearly traverse the array and run loops for 0's,1's and 2's.
+T.C.=O(N)+O(N)=O(2N)
+code:
+int n=nums.size();
+        int l=0;
+        int r=n-1;
+        for(int i=0;i<=r;i++)
+        {
+            if(nums[i]<1)
+            {
+                swap(nums[i],nums[l]);
+                l++;
+            }
+            else if(nums[i]>1)
+            {
+                swap(nums[i],nums[r]);
+                r--;
+                i--;
+            }
+        }
+
+ 
+3. optimal solution:
+using dutch flag algorithm 
+in this algorithm we need to consider 3 pointers low,high and midand initially place the low and midpointer at the start and high pointer at the end.
+so this algorithm is based on the fact that the numbers from [0....low-1] are 0 and [high+1.....n] are 2 ie.,all the elements on the left side will be 0 and on the right side are 2. so we will move the mid pointer until it crosses the high pointer , so while moving we will be having 3 checks , when mid pointer is pointing to 0,1,and 2. so when we  check for traversing we see the mid pointer pointin gto zero. so,it will swap
+		i.e., 0                  swap(a[low],a[mid])
+		                          low++,mid++
+					1										mid++
+					2                    swap(a[mid],a[high])
+					                     high--
+															 
+	T.C.=O(N)
+	S.C.=O(1)
+	code:
+	
+int low=0;
+        int high=nums.size()-1;
+        int mid=0;
+        while(mid<=high){
+            switch(nums[mid]){
+                    //if the elemsnt is zero
+                case 0:
+                    swap(nums[low++],nums[mid++]);
+                    break;
+                case 1:
+                    mid++;
+                    break;
+                case 2:
+                    swap(nums[mid],nums[high--]);
+                    break;
+            }
+        }
